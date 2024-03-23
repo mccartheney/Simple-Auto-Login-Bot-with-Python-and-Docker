@@ -22,9 +22,13 @@ submit_id = os.getenv("SUBMIT_INPUT")
 
 
 def initBot():
+
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")  # Run Chrome in headless mode
+    options.add_argument("--no-sandbox")  # Bypass OS security model
      
     # initialize driver for chrome
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
      
     # open url on chrome
     driver.get(url)
@@ -37,6 +41,8 @@ def initBot():
     # click on login button 
     driver.find_element(By.ID, submit_id).click() # click on submit button
  
+    driver.close()
+
 if __name__ == "__main__" :
     # init bot
     initBot()

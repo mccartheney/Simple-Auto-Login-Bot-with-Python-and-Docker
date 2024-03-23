@@ -9,4 +9,4 @@ RUN pip install python-dotenv
 
 RUN apt-get update && apt-get install -y chromium-driver
 
-CMD python app/main.py
+CMD python main.py

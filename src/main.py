@@ -1,22 +1,42 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# Used to import the webdriver from selenium
+from selenium import webdriver  
+from selenium.webdriver.common.by import By
 
-# Define the URL to open
-url = "https://www.google.com/"
+# import things to get env vars
+from dotenv import load_dotenv
+import os
 
-# Set up options for headless browsing
-options = webdriver.ChromeOptions()
-options.add_argument("--headless")  # Run Chrome in headless mode
-options.add_argument("--no-sandbox")  # Bypass OS security model
+#  load env vars
+load_dotenv()
 
-# Set up the WebDriver
-driver = webdriver.Chrome(options=options)
+# get env vars
+# --- info user
+username = os.getenv("USERNAME")
+password = os.getenv("PASSWORD")
+url = os.getenv("URL")
 
-# Open the URL
-driver.get(url)
+# --- website ID's
+username_id = os.getenv("USERNAME_INPUT")
+password_id = os.getenv("PASS_INPUT")
+submit_id = os.getenv("SUBMIT_INPUT")
 
-# Print the title of the page
-print("Title of the page:", driver.title)
 
-# Close the browser
-driver.quit()
+def initBot():
+     
+    # initialize driver for chrome
+    driver = webdriver.Chrome()
+     
+    # open url on chrome
+    driver.get(url)
+     
+    # get user and pass input for username and pass
+    # add content on them
+    driver.find_element(By.ID,username_id).send_keys(username) # username input
+    driver.find_element(By.ID, password_id).send_keys(password) # password input
+
+    # click on login button 
+    driver.find_element(By.ID, submit_id).click() # click on submit button
+ 
+if __name__ == "__main__" :
+    # init bot
+    initBot()
